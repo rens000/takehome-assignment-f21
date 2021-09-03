@@ -70,6 +70,16 @@ def delete_show(id):
 def get_show(id):
     if db.getById("shows", int(id)) is None:
         return create_response(status=404, message="No show with this id exists") 
+    return create_response(data= db.getById("shows", int(id)))
+
+#Part 3
+@app.route("/shows", methods=['POST'])
+def add_show():   
+    if request.form.get('name') is None or request.form.get('episodes_seen') is None:
+        return create_response(status=422, message="A name and episodes_seen must be provided to post this request") 
+    payload = {"id": 0, "name": request.form.get('name'), "episodes_seen": request.form.get('episodes_seen')}
+    db.create('shows', payload)
+    return create_response(status=201, data=payload) 
 
 
 
