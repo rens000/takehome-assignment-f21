@@ -1,7 +1,6 @@
 <template>
 <div>
-  <p>I'm a Counter!</p>
-  <p>The current count is:  {{ count }} </p>
+  <p>{{ count }} episodes seen</p>
   <button v-on:click="count += 1">Add 1</button>
   <button v-on:click="count -= 1">Delete 1</button>
 </div>
@@ -9,9 +8,15 @@
 
 <script>
 export default {
+  props: {
+    episodes_seen: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
-      count: 0
+      count: this.episodes_seen
     };
   }
 };
