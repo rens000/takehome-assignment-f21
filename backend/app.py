@@ -81,6 +81,14 @@ def add_show():
     db.create('shows', payload)
     return create_response(status=201, data=payload) 
 
+#Part 4
+@app.route("/shows/<id>", methods=['PUT'])
+def update_show(id): 
+    payload = db.updateById("shows", int(id), {"name": request.form.get('name'), "episodes_seen": request.form.get('episodes_seen')})
+    if payload is None:
+        return create_response(status=404, message="A show with the provided id cannot be found") 
+    return create_response(status=201, data=payload) 
+
 
 
 """
