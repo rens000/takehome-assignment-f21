@@ -45,15 +45,18 @@ def create_response(
 def hello_world():
     return create_response({"content": "hello world!"})
 
-
 @app.route("/mirror/<name>")
 def mirror(name):
     data = {"name": name}
     return create_response(data)
 
+#Part 6
 @app.route("/shows", methods=['GET'])
 def get_all_shows():
-    return create_response({"shows": db.get('shows')})
+    minEpisodes = request.args.get('minEpisodes')
+    if minEpisodes is None:
+        return create_response({"shows": db.get('shows')})
+    return create_response(data=db.getMinEpisodes("shows", minEpisodes))
 
 @app.route("/shows/<id>", methods=['DELETE'])
 def delete_show(id):

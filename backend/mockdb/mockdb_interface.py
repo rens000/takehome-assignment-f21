@@ -25,10 +25,18 @@ def updateById(type, id, update_values):
     if item is None:
         return None
     for k, v in update_values.items():
-        if k is not "id":
+        if k is not "id" and v is not None:
             item[k] = v
     return item
 
 
 def deleteById(type, id):
     db_state[type] = [i for i in get(type) if i["id"] != id]
+
+def getMinEpisodes(type, min):
+    l = []
+    for item in db_state[type]:
+        if item['episodes_seen'] >= int(min):
+            l.append(item)
+    db_state["shows"] = l
+    return db_state
