@@ -36,7 +36,6 @@ def deleteById(type, id):
 def getMinEpisodes(type, min):
     l = []
     for item in db_state[type]:
-        if item['episodes_seen'] >= int(min):
+        if int(item['episodes_seen']) >= int(min):
             l.append(item)
-    db_state["shows"] = l
-    return db_state
+    return l

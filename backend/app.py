@@ -56,7 +56,7 @@ def get_all_shows():
     minEpisodes = request.args.get('minEpisodes')
     if minEpisodes is None:
         return create_response({"shows": db.get('shows')})
-    return create_response(data=db.getMinEpisodes("shows", minEpisodes))
+    return create_response({"shows": db.getMinEpisodes("shows", minEpisodes)})
 
 @app.route("/shows/<id>", methods=['DELETE'])
 def delete_show(id):
