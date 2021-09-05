@@ -80,14 +80,14 @@ def get_show(id):
 def add_show():   
     if request.form.get('name') is None or request.form.get('episodes_seen') is None:
         return create_response(status=422, message="A name and episodes_seen must be provided to post this request") 
-    payload = {"id": 0, "name": request.form.get('name'), "episodes_seen": request.form.get('episodes_seen')}
+    payload = {"id": 0, "name": request.form.get('name'), "episodes_seen": int(request.form.get('episodes_seen'))}
     db.create('shows', payload)
     return create_response(status=201, data=payload) 
 
 #Part 4
 @app.route("/shows/<id>", methods=['PUT'])
 def update_show(id): 
-    payload = db.updateById("shows", int(id), {"name": request.form.get('name'), "episodes_seen": request.form.get('episodes_seen')})
+    payload = db.updateById("shows", int(id), {"name": request.form.get('name'), "episodes_seen": int(request.form.get('episodes_seen'))})
     if payload is None:
         return create_response(status=404, message="A show with the provided id cannot be found") 
     return create_response(status=201, data=payload) 
