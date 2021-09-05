@@ -10,6 +10,9 @@
       :name="show.name"
       :episodes_seen="show.episodes_seen"
     />
+    <input v-model="show_name" placeholder="show name">
+    <input v-model="show_episodes" placeholder="episodes seen">
+    <button v-on:click="addShow()">Add show</button>
   </div>
 </template>
 
@@ -22,14 +25,24 @@ export default {
     Instructions,
     Show
   },
+  props: {
+    show_episodes: Number,
+    show_name: String
+  },
   data() {
-    return {
-      shows: [
-        { id: 1, name: "Game of Thrones", episodes_seen: 0 },
-        { id: 2, name: "Naruto", episodes_seen: 220 },
-        { id: 3, name: "Black Mirror", episodes_seen: 3 }
-      ]
-    };
+      return {
+        shows: [
+          { id: 1, name: "Game of Thrones", episodes_seen: 0 },
+          { id: 2, name: "Naruto", episodes_seen: 220 },
+          { id: 3, name: "Black Mirror", episodes_seen: 3 }
+        ]
+      };
+  },
+  methods: {
+    addShow: function (event) {
+      var dict = {id: this.shows.length + 1, name: this.show_name, episodes_seen: parseInt(this.show_episodes)};
+      this.shows.push(dict);
+    }
   }
 };
 </script>
